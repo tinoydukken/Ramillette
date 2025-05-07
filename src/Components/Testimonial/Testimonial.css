@@ -105,3 +105,21 @@
   align-items: center;
   text-align: center;
 }
+.stars img{width: 200px;object-fit: contain;}
+
+
+
+@media(max-width:991px){
+  .testimonial-slider .slick-prev, .testimonial-slider .slick-next{
+    display: none !important;
+  }
+  .testimonial-container{
+    width: 100%;
+    max-width: none;
+  }
+}
+@media(max-width:600px){
+  .testimonial-slider .slick-track{margin-left: 130px !important;}
+  .testimonial-content .review-text{font-size: 1rem;line-height: 1.8;}
+  .stars img{width: 120px;}
+}

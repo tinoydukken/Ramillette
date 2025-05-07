@@ -1,0 +1,29 @@
+.product-list-page{background-color:#f3f3f3;}
+.product-list-page-wrap{display: flex;align-items:flex-start;justify-content: space-between;}
+.product-left{width: 20%;}
+.product-right{width:78%;}
+.product-list-cards{display: flex;align-items: center;flex-wrap: wrap;}
+.product-list-post-card{width: 23%;margin-bottom: 20px;position: relative;margin-right: 20px;}
+.product-list-cards{margin-top: 50px;}
+.product-list-post-card:nth-child(4n){margin-right: 0;}
+
+@media(max-width:1300px){
+    .product-list-post-card{width: 31%;}
+    .product-list-post-card:nth-child(3n){margin-right: 0;}
+    .product-list-post-card:nth-child(4n){margin-right: 20px;}
+}
+@media(max-width:991px){
+    .product-left{width: 30%;}
+    .product-right{width:68%;}
+    .product-list-post-card{width: 46%;}
+    .product-list-post-card:nth-child(2n){margin-right: 0;}
+    .product-list-post-card:nth-child(3n){margin-right: 20px;}
+}
+@media(max-width:768px){
+    .filter-side.desktop-only{display: none;}
+    .product-right{width:100%;}
+    .product-list-post-card{width: 47%;}
+    .product-list-cards{justify-content: center;}
+    .product-list-post-card:nth-child(3n){margin-right:20px;}
+    .product-list-post-card:nth-child(6n){margin-right:0;}
+}

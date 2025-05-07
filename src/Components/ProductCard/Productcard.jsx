@@ -6,6 +6,7 @@ import { useState } from "react";
 import quickview from "../../assets/images/search.png";
 import Tooltip from "../Tooltip/Tooltip";
 import Popup from "../ProductPopup/ProductPopup";
+import { Link } from "react-router-dom";
 
 export default function Productcard() {
     const [isOpen, setIsOpen] = useState(false);
@@ -13,15 +14,21 @@ export default function Productcard() {
         <div>
             <div className="product-card">
                 <div className="product-card-image-sec">
-                    <div className="product-image">
-                        <img src={Perfumimg} alt="" />
-                    </div>
-                    <div className="product-hover-image">
-                        <img src={Perfumhoverimg} alt="" />
-                    </div>
-                    <div className="product-offer-label">
-                        <p>20% OFF</p>
-                    </div>
+                    <Link to="/ProductInner">
+                        <div className="product-image">
+                            <img src={Perfumimg} alt="" />
+                        </div>
+                        <div className="product-hover-image">
+                            <img src={Perfumhoverimg} alt="" />
+                        </div>
+                        <div className="product-new-label">
+                            <p>New</p>
+                        </div>
+                        <div className="product-offer-label">
+                            <p>20% OFF</p>
+                        </div>
+                    </Link>
+
                 </div>
                 <div className="product-content">
                     <h3>CEO Man Perfume - 100ml</h3>
@@ -42,7 +49,7 @@ export default function Productcard() {
                 <button className='secondry-btn'>ADD TO CART</button>
             </div>
             <Popup isOpen={isOpen} onClose={() => setIsOpen(false)}>
-               
+
             </Popup>
         </div>
     );

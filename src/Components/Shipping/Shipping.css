@@ -5,3 +5,38 @@
 .shipping-content p{font-size: 1.2rem;}
 .shipping-row{display: flex;align-items: center;justify-content: space-between;}
 .shipping-card{margin: 0px 40px;}
+
+
+@media(max-width:991px){
+    .shipping-card{
+        margin: 0px 10px;
+        margin-bottom: 30px;
+    }
+    .shipping-row{
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+    .shipping-col1{
+        width: 48%;
+    }
+    .shipping-col2{
+        width: 48%;
+    }
+    .shipping-col3{
+        width: 48%;
+    }
+}
+
+
+@media(max-width:600px){
+    .shipping-col1{
+        width: 100%;
+    }
+    .shipping-col2{
+        width: 100%;
+    }
+    .shipping-col3{
+        width: 100%;
+    }
+}

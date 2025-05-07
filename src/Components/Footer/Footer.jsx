@@ -11,9 +11,8 @@ import footyoutubehover from '../../assets/images/youtube.svg'
 export default function Footer() {
     return (
         <div>
-            <div className="footer-sec">
-                <div className="wrapper">
-                <div className="footer-row">
+            <div className="footer-wrap-sec">
+            <div className="footer-row">
                     <div className="footer-col1">
                         <div className="footer-logo">
                             <img src={footerlogo} alt="" />
@@ -63,7 +62,6 @@ export default function Footer() {
                             </ul>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>

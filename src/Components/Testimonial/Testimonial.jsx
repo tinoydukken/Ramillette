@@ -1,150 +1,21 @@
-// import React from 'react'
-// import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
-// import "./Testimonial.css"
-// import avathar from "../../assets/images/avathar.jpg"
-// import rating from "../../assets/images/rating.png"
-
-
-
-
-
-// export default function Testimonial() {
-//     const settings = {
-//         infinite: true,
-//         speed: 500,
-//         slidesToShow: 5,
-//         slidesToScroll: 1,
-//         autoplay: true,
-//         autoplaySpeed: 2000,
-
-//     };
-//     return (
-//         <div>
-//             <div className="testi-monial-sec">
-//                 <div className="testi-head">
-//                     <h2>What Our <span> Clients Says</span></h2>
-//                 </div>
-//                 <Slider {...settings}>
-//                     <div>
-//                         <div className="testi-slider">
-//                             <div className="testi-content">
-//                                 <div className="testi-avathar">
-//                                     <img src={avathar} alt="" />
-//                                 </div>
-//                                 <div className="star-rating">
-//                                     <img src={rating} alt="" />
-//                                 </div>
-//                                 <p>Their perfumes are really good as well as their service. Hats off to the team, they are very knowledgeable and friendly.Their perfumes are really good as well as their service. Hats off to the team, they are very knowledgeable and friendly. </p>
-//                                 <div className="testi-author">
-//                                     <h3>CEO - Micheal</h3>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div>
-//                         <div className="testi-slider">
-//                             <div className="testi-content">
-//                                 <div className="testi-avathar">
-//                                     <img src={avathar} alt="" />
-//                                 </div>
-//                                 <div className="star-rating">
-//                                     <img src={rating} alt="" />
-//                                 </div>
-//                                 <p>Their perfumes are really good as well as their service. Hats off to the team, they are very knowledgeable and friendly.Their perfumes are really good as well as their service. Hats off to the team, they are very knowledgeable and friendly. </p>
-//                                 <div className="testi-author">
-//                                     <h3>CEO - Micheal</h3>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div>
-//                         <div className="testi-slider">
-//                             <div className="testi-content">
-//                                 <div className="testi-avathar">
-//                                     <img src={avathar} alt="" />
-//                                 </div>
-//                                 <div className="star-rating">
-//                                     <img src={rating} alt="" />
-//                                 </div>
-//                                 <p>Their perfumes are really good as well as their service. Hats off to the team, they are very knowledgeable and friendly.Their perfumes are really good as well as their service. Hats off to the team, they are very knowledgeable and friendly. </p>
-//                                 <div className="testi-author">
-//                                     <h3>CEO - Micheal</h3>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div>
-//                         <div className="testi-slider">
-//                             <div className="testi-content">
-//                                 <div className="testi-avathar">
-//                                     <img src={avathar} alt="" />
-//                                 </div>
-//                                 <div className="star-rating">
-//                                     <img src={rating} alt="" />
-//                                 </div>
-//                                 <p>Their perfumes are really good as well as their service. Hats off to the team, they are very knowledgeable and friendly.Their perfumes are really good as well as their service. Hats off to the team, they are very knowledgeable and friendly. </p>
-//                                 <div className="testi-author">
-//                                     <h3>CEO - Micheal</h3>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div>
-//                         <div className="testi-slider">
-//                             <div className="testi-content">
-//                                 <div className="testi-avathar">
-//                                     <img src={avathar} alt="" />
-//                                 </div>
-//                                 <div className="star-rating">
-//                                     <img src={rating} alt="" />
-//                                 </div>
-//                                 <p>Their perfumes are really good as well as their service. Hats off to the team, they are very knowledgeable and friendly.Their perfumes are really good as well as their service. Hats off to the team, they are very knowledgeable and friendly. </p>
-//                                 <div className="testi-author">
-//                                     <h3>CEO - Micheal</h3>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div>
-//                         <div className="testi-slider">
-//                             <div className="testi-content">
-//                                 <div className="testi-avathar">
-//                                     <img src={avathar} alt="" />
-//                                 </div>
-//                                 <div className="star-rating">
-//                                     <img src={rating} alt="" />
-//                                 </div>
-//                                 <p>Their perfumes are really good as well as their service. Hats off to the team, they are very knowledgeable and friendly.Their perfumes are really good as well as their service. Hats off to the team, they are very knowledgeable and friendly. </p>
-//                                 <div className="testi-author">
-//                                     <h3>CEO - Micheal</h3>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </Slider>
-//             </div>
-//         </div>
-//     )
-// }
-
-
 import React, { useState, useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import avathar from "../../assets/images/avathar-1.jpeg";
 import "./Testimonial.css";
+import starrating from "../../assets/images/rating.png"
+
+
 
 const testimonials = [
   { name: "User 1", image: avathar, review: " but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", username: "@user1" },
 
-  { name: "User 2", image: avathar, review: "by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.", username: "@user2" },
+  { name: "User 2", image: avathar, review: "by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.The first line of Lorem Ipsum, Lorem ipsum dolor sit amet..,", username: "@user2" },
 
-  { name: "Simran Narang", image: avathar, review: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. ", username: "@simrannaranggg" },
+  { name: "Simran Narang", image: avathar, review: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet..,", username: "@simrannaranggg" },
 
-  { name: "User 3", image: avathar, review: "Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.", username: "@user3" },
+  { name: "User 3", image: avathar, review: "Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary,", username: "@user3" },
 
   { name: "User 4", image: avathar, review: "or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary,", username: "@user4" },
 
@@ -152,11 +23,11 @@ const testimonials = [
 
   { name: "User 1", image: avathar, review: " but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", username: "@user1" },
 
-  { name: "User 2", image: avathar, review: "by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.", username: "@user2" },
+  { name: "User 2", image: avathar, review: "or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary,", username: "@user2" },
 
-  { name: "Simran Narang", image: avathar, review: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. ", username: "@simrannaranggg" },
+  { name: "Simran Narang", image: avathar, review: "or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary,", username: "@simrannaranggg" },
 
-  { name: "User 3", image: avathar, review: "Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.", username: "@user3" },
+  { name: "User 3", image: avathar, review: "or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary,", username: "@user3" },
 
   { name: "User 4", image: avathar, review: "or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary,", username: "@user4" },
 
@@ -164,7 +35,7 @@ const testimonials = [
 ];
 
 const TestimonialSlider = () => {
-  const [currentSlide, setCurrentSlide] = useState(2);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
   const settings = {
     infinite: true,
@@ -176,9 +47,9 @@ const TestimonialSlider = () => {
     focusOnSelect: true,
     beforeChange: (_, newIndex) => setCurrentSlide(newIndex),
     responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 3, centerPadding: "30px" } },
-      { breakpoint: 768, settings: { slidesToShow: 3, centerPadding: "20px" } },
-      { breakpoint: 576, settings: { slidesToShow: 1, centerPadding: "0px" } },
+      { breakpoint: 1024, settings: { slidesToShow: 5, centerPadding: "30px" } },
+      { breakpoint: 768, settings: { slidesToShow: 5, centerPadding: "20px" } },
+      { breakpoint: 600, settings: { slidesToShow: 3, centerPadding: "0px" } },
     ],
   };
   
@@ -219,7 +90,7 @@ const TestimonialSlider = () => {
 
       {/* Dynamic Review Content */}
       <div className="testimonial-content">
-        <p className="stars">⭐⭐⭐⭐⭐</p>
+        <p className="stars"><img src={starrating} alt="" /></p>
         <p className="review-text">{testimonials[currentSlide]?.review}</p>
         <p className="author">— {testimonials[currentSlide]?.name}</p>
       </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ProductPopup.css";
 import ProductSlider from "../Productslider/Productslider";
 import perfum1 from "../../assets/images/perfume.png";
@@ -8,18 +8,46 @@ import stararting from "../../assets/images/rating.png";
 
 const images = [perfum1, perfum2, perfum1, perfum2];
 
+const content = [
+  {
+    title: "Overview",
+    text: "Get a quick summary of our amazing product. It's designed to help you achieve your goals efficiently.",
+  },
+  {
+    title: "Features",
+    text: "Explore our cutting-edge features that make your experience smooth and productive.",
+  },
+  {
+    title: "Pricing",
+    text: "We offer flexible pricing plans to suit your needs. Choose the best plan for you!",
+  },
+];
+
 const Popup = ({ isOpen, onClose }) => {
   const [quantity, setQuantity] = useState(1);
-  const stock = 10; // Example stock limit
+  const [activeTab, setActiveTab] = useState(null); // Start with no tab open
+  const stock = 10;
+
+  // 🔒 Lock background scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
   const increment = () => {
-    if (quantity < stock) setQuantity(quantity + 1);
+    if (quantity < stock) setQuantity((prev) => prev + 1);
   };
 
   const decrement = () => {
-    if (quantity > 1) setQuantity(quantity - 1);
+    if (quantity > 1) setQuantity((prev) => prev - 1);
   };
 
   return (
@@ -42,41 +70,69 @@ const Popup = ({ isOpen, onClose }) => {
                   </div>
                   <div className="product-rate">
                     <p className="saveprice">
-                      M.R.P: <span> ₹2,000.00</span>
+                      M.R.P: <span>₹2,000.00</span>
                     </p>
-                    <p>₹ 1,000</p>
+                    <p>₹1,000</p>
                   </div>
                   <div className="tax">
                     <p>Inclusive of all taxes</p>
                   </div>
                 </div>
-
-                {/* Quantity Section */}
                 <div className="product-quantity">
                   <p>Quantity:</p>
                   <div className="quantity-controls">
-                    <button className="quantity-btn" onClick={decrement} disabled={quantity === 1}>
+                    <button
+                      className="quantity-btn"
+                      onClick={decrement}
+                      disabled={quantity === 1}
+                    >
                       -
                     </button>
                     <span className="quantity-value">{quantity}</span>
-                    <button className="quantity-btn" onClick={increment} disabled={quantity === stock}>
+                    <button
+                      className="quantity-btn"
+                      onClick={increment}
+                      disabled={quantity === stock}
+                    >
                       +
                     </button>
                   </div>
                 </div>
                 <div className="product-popup-btns">
                   <div className="add-btn">
-                    <button className="secondry-btn">buy now</button>
+                    <button className="secondry-btn">Buy Now</button>
                   </div>
                   <div className="product-buy-btn">
-                  <button className="buy-btn">Add to cart</button>
+                    <button className="buy-btn">Add to Cart</button>
                   </div>
                 </div>
                 <div className="product-popup-details">
-                    <p><span>Top Note: </span>NEEA EDP 50 ML : Citrus, lemon peel, green ASCEND EDP 50 ML: Fruity-APPLE, Citrus-GRAPEFRUIT, MARINE NOTE YEARN EDP 50 ML : Citrus, fruity Black currant, Marine</p>
-                    <p><span>Top Note: </span>NEEA EDP 50 ML : Citrus, lemon peel, green ASCEND EDP 50 ML: Fruity-APPLE, Citrus-GRAPEFRUIT, MARINE NOTE YEARN EDP 50 ML : Citrus, fruity Black currant, Marine</p>
-                    <p><span>Top Note: </span>NEEA EDP 50 ML : Citrus, lemon peel, green ASCEND EDP 50 ML: Fruity-APPLE, Citrus-GRAPEFRUIT, MARINE NOTE YEARN EDP 50 ML : Citrus, fruity Black currant, Marine</p>
-                    <p><span>Top Note: </span>NEEA EDP 50 ML : Citrus, lemon peel, green ASCEND EDP 50 ML: Fruity-APPLE, Citrus-GRAPEFRUIT, MARINE NOTE YEARN EDP 50 ML : Citrus, fruity Black currant, Marine</p>
+                  <div className="accordion-tabs">
+                    {content.map((item, index) => (
+                      <div key={index} className="accordion-item">
+                        <button
+                          className={`accordion-header ${
+                            activeTab === index ? "active" : ""
+                          }`}
+                          onClick={() =>
+                            setActiveTab(activeTab === index ? null : index)
+                          }
+                        >
+                          {item.title}
+                          <span
+                            className={`arrow ${
+                              activeTab === index ? "up" : "down"
+                            }`}
+                          ></span>
+                        </button>
+                        {activeTab === index && (
+                          <div className="accordion-body">
+                            <p>{item.text}</p>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

@@ -49,7 +49,7 @@ export default function HomePage() {
       </div>
       <div className="shippping-sec">
         <div className="wrapper">
-          <Shipping/>
+          <Shipping />
         </div>
       </div>
       <div className="secondry-banner-sec">
@@ -62,7 +62,7 @@ export default function HomePage() {
       </div>
       <div className="footer-sec">
         <div className="wrapper">
-          <Footer/>
+          <Footer />
         </div>
       </div>
     </main>

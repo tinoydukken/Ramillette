@@ -12,3 +12,14 @@
 .banner-content h1{font-size: 4rem;color: #fff;font-weight: 600;}
 .banner-content .secondry-btn{margin-top:50px;}
 .serchbtn img{width: 25px;}
+
+
+
+@media(max-width:991px){
+    .banner-content h1{font-size: 3rem;font-weight: 500;}
+}
+
+@media(max-width:600px){
+    .banner-sec .slick-prev, .banner-sec .slick-next{display: none !important;}
+    .banner-content h1{font-size: 2rem;}
+}

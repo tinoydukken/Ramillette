@@ -32,3 +32,13 @@
 .dropdown-item {display: flex;align-items: center;gap: 8px;padding: 10px;cursor: pointer;}
 .dropdown-item:hover {background: #afafaf;}
 .flag img{width: 20px;height: 20px;}
+
+
+@media(max-width:991px){
+    .topheader-col1{display: none;}
+}
+@media(max-width:600px){
+    .top-header-col2{margin-right: 20px;}
+    .top-header-sec p a{font-size: 0.8rem;font-weight: 400;}
+    
+}
