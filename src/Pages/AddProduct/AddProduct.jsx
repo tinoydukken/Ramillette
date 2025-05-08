@@ -1,0 +1,387 @@
+import { useFormik } from "formik";
+import "./AddProduct.css";
+import * as Yup from "yup";
+import { addProduct } from "../../services/productApiServices";
+import { useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
+import { IoClose, IoCloudUploadOutline } from "react-icons/io5";
+import AdminHeader from "../../Components/AdminHeader/AdminHeader";
+
+
+export default function AddProduct() {
+  const navigate = useNavigate();
+ 
+
+  const [productImages, setProductImages] = useState([]);
+  const imageRef = useRef(null);
+
+  const productValidationSchema = Yup.object().shape({
+    productName: Yup.string()
+      .required("Product name is required")
+      .min(3, "Product name must be at least 3 characters"),
+
+    productShortName: Yup.string()
+      .required("Product short name is required")
+      .max(20, "Short name can't exceed 20 characters"),
+
+    productPrice: Yup.number()
+      .required("Product price is required")
+      .typeError("Price must be a number")
+      .positive("Price must be greater than 0"),
+    productDiscount: Yup.number()
+      .required("Product discount is required")
+      .typeError("Price discount must be a number")
+      .positive("Price discount must be greater than 0")
+      .max(100, "Discount cannot exceed 100%")
+      .min(0, "Discount cannot be negative"),
+
+    productDescription: Yup.string()
+      .required("Product description is required")
+      .min(10, "Description must be at least 10 characters"),
+
+    productStock: Yup.number()
+      .required("Stock quantity is required")
+      .typeError("Stock must be a number")
+      .min(0, "Stock cannot be negative"),
+
+    productBenefits: Yup.string()
+      .required("Product benefits are required")
+      .min(5, "Please describe at least one benefit"),
+    productRating: Yup.number()
+      .required("Product rating is required")
+      .typeError("Product rating must be a number")
+      .positive("Product rating must be greater than 0")
+      .max(5, "Product rating cannot exceed 5"),
+    productUseCase: Yup.string()
+      .required("Product use case is required")
+      .min(5, "Please describe a use case minimum of 5 characters"),
+    productIngredients: Yup.string()
+      .required("Product Ingredients is required")
+      .min(5, "Please describe a Ingredients minimum of 5 characters"),
+    productOtherInfo: Yup.string()
+      .min(5, "Please describe a other information minimum of 5 characters")
+      .nullable(),
+
+    productImages: Yup.array()
+      .of(
+        Yup.mixed()
+          .test(
+            "fileRequired",
+            "Image is required",
+            (file) => file instanceof File
+          )
+          .test("fileType", "Only image files are allowed", (file) =>
+            file
+              ? ["image/jpeg", "image/png", "image/webp"].includes(file.type)
+              : false
+          )
+      )
+      .min(1, "At least one image is required")
+      .max(5, "A maximum of 5 images is allowed")
+      .required("Images are required"),
+  });
+  const {
+    values,
+    errors,
+    handleChange,
+    handleBlur,
+    touched,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues: {
+      productName: "",
+      productShortName: "",
+      productPrice: "",
+      productDiscount: "",
+      productDescription: "",
+      productStock: "",
+      productBenefits: "",
+      productRating: "",
+      productUseCase: "",
+      productImages: [],
+      productIngredients: "",
+      productOtherInfo: "",
+    },
+    validationSchema: productValidationSchema,
+    onSubmit: (values, { resetForm, setSubmitting }) => {
+      const processedData = {
+        ...values,
+        productBenefits: values.productBenefits
+          .split("\n")
+          .map((b) => b.trim())
+          .filter((b) => b.length > 0),
+        productUseCase: values.productUseCase
+          .split("\n")
+          .map((b) => b.trim())
+          .filter((b) => b.length > 0),
+      };
+      addProduct(processedData, navigate, resetForm, setSubmitting, imageRef);
+    },
+  });
+
+  // function to handle image upload
+  const handleImageChange = (event) => {
+    setProductImages([]);
+    const files = event.target.files;
+    setFieldValue("productImages", [...files]);
+    values.productImages = files;
+    if (files.length > 5) {
+      return;
+    }
+    setProductImages(files);
+  };
+
+  // function to delete image from selected
+  function deleteImage(id) {
+    const newImages = [...productImages].filter((image, index) => index !== id);
+    setProductImages(newImages);
+    setFieldValue("productImages", newImages);
+    values.productImages = newImages;
+  }
+
+  return (
+    <div className="admin-add-product-main-container">
+      <div className="admin-add-product-container">
+        <AdminHeader title="Add Product" />
+        <form className="admin-add-product-form" onSubmit={handleSubmit}>
+          <div className="admin-add-product-form-group">
+            <label htmlFor="productName">Product Name</label>
+            <div className="admin-add-product-input-wrapper">
+              <input
+                type="text"
+                className="admin-add-product-input"
+                id="productName"
+                name="productName"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.productName}
+              />
+              {errors?.productName && touched.productName && (
+                <p className="error-message">{errors?.productName}</p>
+              )}
+            </div>
+          </div>
+          <div className="admin-add-product-form-group">
+            <label htmlFor="productName">Short Name</label>
+            <div className="admin-add-product-input-wrapper">
+              <input
+                type="text"
+                className="admin-add-product-input"
+                id="productShortName"
+                name="productShortName"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.productShortName}
+              />
+              {errors?.productShortName && touched.productShortName && (
+                <p className="error-message">{errors?.productShortName}</p>
+              )}
+            </div>
+          </div>
+          <div className="admin-add-product-form-group">
+            <label htmlFor="product-price">Product Price</label>
+            <div className="admin-add-product-input-wrapper">
+              <input
+                type="number"
+                id="productPrice"
+                name="productPrice"
+                className="admin-add-product-input"
+                onWheel={(e) => e.target.blur()}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.productPrice}
+              />
+              {errors?.productPrice && touched.productPrice && (
+                <p className="error-message">{errors?.productPrice}</p>
+              )}
+            </div>
+          </div>
+          <div className="admin-add-product-form-group">
+            <label htmlFor="product-price">Product Discount</label>
+            <div className="admin-add-product-input-wrapper">
+              <input
+                type="number"
+                id="productDiscount"
+                name="productDiscount"
+                className="admin-add-product-input"
+                onWheel={(e) => e.target.blur()}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.productDiscount}
+              />
+              {errors?.productDiscount && touched.productDiscount && (
+                <p className="error-message">{errors?.productDiscount}</p>
+              )}
+            </div>
+          </div>
+          <div className="admin-add-product-form-group">
+            <label htmlFor="product-description">Product Description</label>
+            <div className="admin-add-product-input-wrapper">
+              <textarea
+                id="productDescription"
+                name="productDescription"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.productDescription}
+              ></textarea>
+              {errors?.productDescription && touched.productDescription && (
+                <p className="error-message">{errors?.productDescription}</p>
+              )}
+            </div>
+          </div>
+          <div className="admin-add-product-form-group">
+            <label htmlFor="product-price">Product Stock</label>
+            <div className="admin-add-product-input-wrapper">
+              <input
+                type="number"
+                id="productStock"
+                name="productStock"
+                className="admin-add-product-input"
+                onWheel={(e) => e.target.blur()}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.productStock}
+              />
+              {errors?.productStock && touched.productStock && (
+                <p className="error-message">{errors?.productStock}</p>
+              )}
+            </div>
+          </div>
+          <div className="admin-add-product-form-group">
+            <label htmlFor="product-description">Benefits</label>
+            <div className="admin-add-product-input-wrapper">
+              <textarea
+                id="productBenefits"
+                name="productBenefits"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.productBenefits}
+              ></textarea>
+              {errors?.productBenefits && touched.productBenefits && (
+                <p className="error-message">{errors?.productBenefits}</p>
+              )}
+            </div>
+          </div>
+          <div className="admin-add-product-form-group">
+            <label htmlFor="product-price">Product Rating</label>
+            <div className="admin-add-product-input-wrapper">
+              <input
+                type="number"
+                id="productRating"
+                name="productRating"
+                className="admin-add-product-input"
+                onWheel={(e) => e.target.blur()}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.productRating}
+              />
+              {errors?.productRating && touched.productRating && (
+                <p className="error-message">{errors?.productRating}</p>
+              )}
+            </div>
+          </div>
+          <div className="admin-add-product-form-group">
+            <label htmlFor="product-description">Product Use Case</label>
+            <div className="admin-add-product-input-wrapper">
+              <textarea
+                id="productUseCase"
+                name="productUseCase"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.productUseCase}
+              ></textarea>
+              {errors?.productUseCase && touched.productUseCase && (
+                <p className="error-message">{errors?.productUseCase}</p>
+              )}
+            </div>
+          </div>
+          <div className="admin-add-product-form-group">
+            <label htmlFor="product-price">Product Images</label>
+            <div className="admin-add-product-input-wrapper">
+              <div className="admin-add-product-input-custom-file">
+                <input
+                  type="file"
+                  id="productImages"
+                  name="productImages"
+                  className="admin-add-product-input custom-file-input"
+                  onChange={handleImageChange}
+                  multiple
+                  onBlur={handleBlur}
+                  ref={imageRef}
+                />
+                <div className="admin-add-product-input-custom-file-btn">
+                  <IoCloudUploadOutline />
+                  <p>Upload Images</p>
+                </div>
+              </div>
+              {errors?.productImages && touched.productImages && (
+                <p className="error-message">{errors?.productImages}</p>
+              )}
+            </div>
+          </div>
+          {productImages.length > 0 && (
+            <div className="admin-add-product-images-preview-container">
+              <p>Product image preview</p>
+              <div className="admin-add-product-images-preview-section">
+                {productImages.length > 0 &&
+                  [...productImages].map((image, index) => (
+                    <div
+                      key={index}
+                      className="admin-add-product-images-preview"
+                    >
+                      <img
+                        src={URL.createObjectURL(image)}
+                        alt={`product-image-${index}`}
+                      />
+                      <div
+                        className="admin-add-product-image-delete-btn"
+                        onClick={() => deleteImage(index)}
+                      >
+                        <IoClose />
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
+          <div className="admin-add-product-form-group">
+            <label htmlFor="product-description">Product Ingredients</label>
+            <div className="admin-add-product-input-wrapper">
+              <textarea
+                id="productIngredients"
+                name="productIngredients"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.productIngredients}
+              ></textarea>
+              {errors?.productIngredients && touched.productIngredients && (
+                <p className="error-message">{errors?.productIngredients}</p>
+              )}
+            </div>
+          </div>
+          <div className="admin-add-product-form-group">
+            <label htmlFor="product-description">
+              Product Other Information
+            </label>
+            <div className="admin-add-product-input-wrapper">
+              <textarea
+                id="productOtherInfo"
+                name="productOtherInfo"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.productOtherInfo}
+              ></textarea>
+              {errors?.productOtherInfo && touched.productOtherInfo && (
+                <p className="error-message">{errors?.productOtherInfo}</p>
+              )}
+            </div>
+          </div>
+          <button type="submit" className="admin-add-product-submit-btn">
+            Add Product
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
