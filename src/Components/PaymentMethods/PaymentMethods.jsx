@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './PaymentMethods.css'; // Styles below
+import './PaymentMethods.css'; // Styles below.
 import { FiEdit2, FiTrash } from 'react-icons/fi';
 import cardvisa from '../../assets/images/card-master.png'
 import cardvisa2 from '../../assets/images/card-visa.png'
