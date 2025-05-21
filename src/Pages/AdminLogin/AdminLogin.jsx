@@ -1,8 +1,13 @@
 import "./AdminLogin.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { adminLogin } from "../../services/adminApiServices";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminLogin() {
+
+  const navigate = useNavigate()
+
   const validationSchema = Yup.object().shape({
     userName: Yup.string()
       .required("userName is required")
@@ -27,17 +32,9 @@ export default function AdminLogin() {
     },
     validationSchema,
     onSubmit: async (values, { resetForm, setSubmitting }) => {
-      // Call your login API here
-      //   const response = await loginUser(
-      //     values,
-      //     navigate,
-      //     resetForm,
-      //     setSubmitting
-      //   );
-      //   if (response) {
-      //     dispatch(login({ user: response?.user, token: response?.token }));
-      //   }
-      console.log(values);
+      // Call the login function from the API service
+      adminLogin(values,resetForm,setSubmitting,navigate);
+      // adminRegister(values)
     },
   });
 
@@ -79,7 +76,7 @@ export default function AdminLogin() {
             disabled={isSubmitting}
             onClick={handleSubmit}
           >
-            Login in
+            Log in
           </button>
         </div>
       </form>

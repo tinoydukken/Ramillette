@@ -41,5 +41,3 @@ export async function loginUser(data, navigate, resetForm, setSubmitting) {
     setSubmitting(false);
   }
 }
-
-

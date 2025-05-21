@@ -1,0 +1,32 @@
+.DashBoardPageWrappper {
+    margin: 50px auto;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.DashBoardPageWrappper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.dashboard-sidebar {
+    width: 30%;
+}
+
+.orders-table-wrapper {
+    width: 68%;
+}
+.wishlist-section{
+    width: 68%;
+}
+.profile-info-section{
+    width: 68%;
+}
+.address-list-container{
+    width: 68%;
+}
+.payment-methods{
+    width: 68%;
+}

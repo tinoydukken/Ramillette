@@ -1,6 +1,6 @@
 import "./RegisterPage.css";
 import NavBar from "../../Components/NavBar/NavBar";
-import Topheader from "../../Components/TopHeader/Topheader";
+import TopHeader from "../../Components/TopHeader/TopHeader";
 import Footer from "../../Components/Footer/Footer";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
@@ -53,7 +53,7 @@ export default function RegisterPage() {
   return (
     <>
       <div className="register-page">
-        <Topheader />
+        <TopHeader />
         <NavBar />
         <div className="auth-form">
           <h1 className="login-title">SIGN UP</h1>

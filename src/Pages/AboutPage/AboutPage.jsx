@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react';
-import TopHeader from "../../Components/TopHeader/Topheader";
+import TopHeader from "../../Components/TopHeader/TopHeader";
 import NavBar from "../../Components/NavBar/NavBar";
 import Footer from '../../Components/Footer/Footer';
 import Shipping from '../../Components/Shipping/Shipping';
-import aboutImage from "../../Assets/images/banner (2).jpg";
-import manufacturingVideo from "../../Assets/images/secondry-banner.mp4"; 
+import aboutImage from "../../assets/images/banner-2.jpg";
+import manufacturingVideo from "../../assets/images/secondry-banner.mp4"; 
+// import manufacturingVideo from "../../Assets/images/secondry-banner.mp4"; 
 import "./AboutPage.css";
 
 export default function AboutPage() {

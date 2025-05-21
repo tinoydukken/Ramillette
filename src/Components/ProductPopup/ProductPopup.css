@@ -279,6 +279,10 @@
   color: #555;
   border-radius: 5px;
 }
+.accordion-body p{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* Optional Animation */
 @keyframes fadeSlideDown {

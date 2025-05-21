@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: null,
+  user: {
+    wishlist: [],
+  },
   token: null,
 };
 
@@ -17,8 +19,11 @@ const userSlice = createSlice({
       state.user = null;
       state.token = null;
     },
+    updateUserWishList: (state, action) => {
+      state.user.wishlist = action.payload.user;
+    },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, updateUserWishList } = userSlice.actions;
 export default userSlice.reducer;

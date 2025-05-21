@@ -1,13 +1,13 @@
 import "./LoginPage.css"; // We'll add nice styling here
 import NavBar from "../../Components/NavBar/NavBar";
-import Topheader from "../../Components/TopHeader/Topheader";
+import TopHeader from "../../Components/TopHeader/TopHeader";
 import Footer from "../../Components/Footer/Footer";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { loginUser } from "../../services/userApiServices";
 import { useDispatch } from "react-redux";
-import { login } from "../../redux/slices/userSlice";
+import { login, updateUserWishList } from "../../redux/slices/userSlice";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -46,15 +46,15 @@ const LoginPage = () => {
       );
       if (response) {
         dispatch(login({ user: response?.user, token: response?.token }));
+        dispatch(updateUserWishList({ user: response?.wishlist?.products }));
       }
     },
   });
 
-
   return (
     <>
       <div className="login-page">
-        <Topheader />
+        <TopHeader />
         <NavBar />
       </div>
       <div className="login-container">

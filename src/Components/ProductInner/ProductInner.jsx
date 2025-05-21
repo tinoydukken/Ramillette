@@ -28,9 +28,14 @@ const Accordion = ({ title, children, defaultOpen = false }) => {
 };
 
 export default function ProductInner(Props) {
-  const { product } = Props;
+  const { product = {} } = Props;
+
+  {
+    console.log(product, "product");
+  }
   // const images = [img1, img2, img3, img4, img5];
 
+  const [readMore, setReadMore] = useState(false);
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
   const slider1 = useRef(null);
@@ -44,6 +49,9 @@ export default function ProductInner(Props) {
   const [quantity, setQuantity] = useState(1);
   const increment = () => setQuantity((q) => q + 1);
   const decrement = () => setQuantity((q) => (q > 1 ? q - 1 : 1));
+
+  // toggle to show and hide the complete description
+  const toggleShowFull = () => setReadMore((prev) => !prev);
 
   return (
     <div className="product-inner-page">
@@ -154,8 +162,23 @@ export default function ProductInner(Props) {
                 </div>
 
                 <p className="description">
-                  {product?.productDescription || ""}
-                  <span className="read-more">Read more</span>
+                  {product?.productDescription ? (
+                    <>
+                      {readMore
+                        ? product.productDescription
+                        : product.productDescription.slice(0, 150)}
+
+                      {!readMore &&
+                        product.productDescription.length > 150 &&
+                        "..."}
+
+                      {product.productDescription.length > 150 && (
+                        <span className="read-more" onClick={toggleShowFull}>
+                          {readMore ? " Read less" : " Read more"}
+                        </span>
+                      )}
+                    </>
+                  ) : null}
                 </p>
 
                 <div className="offers">

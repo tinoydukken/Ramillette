@@ -21,18 +21,40 @@ import { IoTrashOutline } from "react-icons/io5";
 import AdminProductPreviewModal from "../../Components/AdminProductPreviewModal/AdminProductPreviewModal";
 import { MdStarRate } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { IoClose } from "react-icons/io5";
 
 export default function AdminProductList() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [products, setProducts] = useState([]);
   const [openPreviewModal, setOpenPreviewModal] = useState(false);
   const [modalPreviewData, setModalPreviewData] = useState({});
   const [changed, setChanged] = useState(false);
+  const [totalProducts, setTotalProducts] = useState(0);
+  const [searchText, setSearchText] = useState("");
+  // for managing the api call with the search time
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
   useEffect(() => {
-    getAllProducts(setProducts);
-  }, [changed]);
+    const delayDebounce = setTimeout(() => {
+      setDebouncedSearch(searchText);
+    }, 2000); // delay for debounce
+
+    return () => clearTimeout(delayDebounce);
+  }, [searchText]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      getAllProducts(
+        page + 1,
+        rowsPerPage,
+        debouncedSearch,
+        setProducts,
+        setTotalProducts
+      );
+    }
+    fetchProducts();
+  }, [page, rowsPerPage, changed, debouncedSearch]);
 
   function closePreviewModal() {
     setOpenPreviewModal(false);
@@ -107,6 +129,27 @@ export default function AdminProductList() {
       />
       <div className="admin-product-list-container">
         <AdminHeader title="Product List" />
+        <div className="admin-product-list-search-container">
+          <div>
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={searchText}
+              onChange={(e) => {
+                setSearchText(e.target.value);
+                setPage(1);
+              }}
+            />
+            <div className="admin-product-list-search-clear">
+              <IoClose
+                onClick={() => {
+                  setSearchText("");
+                  setDebouncedSearch("");
+                }}
+              />
+            </div>
+          </div>
+        </div>
         {products && products.length > 0 ? (
           <div>
             <TableContainer
@@ -136,7 +179,7 @@ export default function AdminProductList() {
                         padding: "0px",
                       }}
                     >
-                      <TableCell>{index + 1}</TableCell>
+                      <TableCell>{page * rowsPerPage + index + 1}</TableCell>
                       <TableCell align="center">
                         {product.productName}
                       </TableCell>
@@ -211,7 +254,7 @@ export default function AdminProductList() {
             </TableContainer>
             <TablePagination
               component="div"
-              count={products.length}
+              count={totalProducts}
               page={page}
               onPageChange={handleChangePage}
               rowsPerPage={rowsPerPage}

@@ -52,3 +52,39 @@
   display: flex;
   align-items: center;
 }
+
+.admin-product-list-search-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  margin-bottom: 1rem;
+}
+.admin-product-list-search-container > div {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 0 10px;
+}
+.admin-product-list-search-container input {
+  width: 300px;
+  height: 30px;
+  padding-left: 10px;
+  font-size: 14px;
+}
+.admin-product-list-search-clear {
+  width: fit-content;
+  height: fit-content;
+  border-radius: 50%;
+  background-color: rgba(244, 244, 244, 0.756);
+  display: flex;
+  align-items: center;
+  padding: 1px;
+}
+.admin-product-list-search-clear>svg{
+  cursor: pointer;
+}

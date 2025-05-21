@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import  { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "./Productslider.css"
 
 const ProductSlider = ({ images }) => {
   const [nav1, setNav1] = useState(null);
@@ -21,7 +22,7 @@ const ProductSlider = ({ images }) => {
       <Slider className="main-image-slider" asNavFor={nav2} ref={slider1} arrows={false} fade>
         {images.map((img, index) => (
           <div className="main-slider-sec" key={index}>
-            <img src={img} alt={`Product ${index}`} className="main-slide" />
+            <img src={`${import.meta.env.VITE_BASE_URL}/${img}`} alt={`Product ${index}`} className="main-slide" />
           </div>
         ))}
       </Slider>
@@ -39,7 +40,7 @@ const ProductSlider = ({ images }) => {
       >
         {images.map((img, index) => (
           <div className="thumb-slide-sec" key={index} style={{ margin: "0 5px" }}>
-            <img src={img} alt={`Thumbnail ${index}`} className="thumb-slide" />
+            <img src={`${import.meta.env.VITE_BASE_URL}/${img}`} alt={`Thumbnail ${index}`} className="thumb-slide" />
           </div>
         ))}
       </Slider>

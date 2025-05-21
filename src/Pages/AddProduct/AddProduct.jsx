@@ -7,10 +7,8 @@ import { useRef, useState } from "react";
 import { IoClose, IoCloudUploadOutline } from "react-icons/io5";
 import AdminHeader from "../../Components/AdminHeader/AdminHeader";
 
-
 export default function AddProduct() {
   const navigate = useNavigate();
- 
 
   const [productImages, setProductImages] = useState([]);
   const imageRef = useRef(null);
@@ -79,6 +77,14 @@ export default function AddProduct() {
       .min(1, "At least one image is required")
       .max(5, "A maximum of 5 images is allowed")
       .required("Images are required"),
+    productFAQ: Yup.array()
+      .of(
+        Yup.object().shape({
+          question: Yup.string().required("Question is required"),
+          answer: Yup.string().required("Answer is required"),
+        })
+      )
+      .min(1, "At least one FAQ is required"),
   });
   const {
     values,
@@ -102,9 +108,16 @@ export default function AddProduct() {
       productImages: [],
       productIngredients: "",
       productOtherInfo: "",
+      productFAQ: [
+        {
+          question: "",
+          answer: "",
+        },
+      ],
     },
     validationSchema: productValidationSchema,
     onSubmit: (values, { resetForm, setSubmitting }) => {
+      console.log(values,"values")
       const processedData = {
         ...values,
         productBenefits: values.productBenefits
@@ -359,6 +372,88 @@ export default function AddProduct() {
                 <p className="error-message">{errors?.productIngredients}</p>
               )}
             </div>
+          </div>
+          <div className="admin-add-product-form-group">
+            <div className="admin-add-product-faq-container">
+              <label htmlFor="product-description">Product FAQ</label>
+              <button
+                type="button"
+                onClick={() => {
+                  setFieldValue("productFAQ", [
+                    ...values.productFAQ,
+                    { question: "", answer: "" },
+                  ]);
+                }}
+              >
+                Add
+              </button>
+            </div>
+
+            {values.productFAQ.map((faq, index) => (
+              <div className="admin-add-product-faq-section" key={index}>
+                <div className="admin-add-product-faq-section-item">
+                  <label
+                    htmlFor={`productFAQ[${index}].question`}
+                    className="admin-add-product-faq-section-item-label"
+                  >
+                    Question
+                  </label>
+                  <input
+                    type="text"
+                    name={`productFAQ[${index}].question`}
+                    value={faq.question}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="admin-add-product-input"
+                  />
+                  {errors.productFAQ &&
+                    errors.productFAQ[index]?.question &&
+                    touched.productFAQ?.[index]?.question && (
+                      <p className="error-message">
+                        {errors.productFAQ[index].question}
+                      </p>
+                    )}
+                </div>
+
+                <div className="admin-add-product-faq-section-item">
+                  <label
+                    htmlFor={`productFAQ[${index}].answer`}
+                    className="admin-add-product-faq-section-item-label"
+                  >
+                    Answer
+                  </label>
+                  <input
+                    type="text"
+                    name={`productFAQ[${index}].answer`}
+                    value={faq.answer}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className="admin-add-product-input"
+                  />
+                  {errors.productFAQ &&
+                    errors.productFAQ[index]?.answer &&
+                    touched.productFAQ?.[index]?.answer && (
+                      <p className="error-message">
+                        {errors.productFAQ[index].answer}
+                      </p>
+                    )}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const updatedFAQs = [...values.productFAQ];
+                    updatedFAQs.splice(index, 1);
+                    setFieldValue("productFAQ", updatedFAQs);
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            ))}
+            {typeof errors.productFAQ === "string" && touched.productFAQ && (
+              <p className="error-message">{errors.productFAQ}</p>
+            )}
           </div>
           <div className="admin-add-product-form-group">
             <label htmlFor="product-description">

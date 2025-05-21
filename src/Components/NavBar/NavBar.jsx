@@ -3,7 +3,7 @@ import logo from "../../assets/images/logo.png";
 import search from "../../assets/images/search.png";
 import wishlist from "../../assets/images/wishlist.png";
 import cart from "../../assets/images/shopping-bag.png";
-import user from "../../assets/images/people.png";
+import userProfile from "../../assets/images/people.png";
 import perfumeImg from "../../assets/images/perfume.png";
 import login from "../../assets/images/login.png";
 import signup from "../../assets/images/signup.png";
@@ -24,7 +24,7 @@ export default function NavBar() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { token } = useSelector((state) => state.user);
+  const { token, user } = useSelector((state) => state.user);
 
   const [cartItems, setCartItems] = useState([
     {
@@ -202,7 +202,7 @@ export default function NavBar() {
                     </form>
                     <div className="user-dropdown-wrapper">
                       <img
-                        src={user}
+                        src={userProfile}
                         alt="User"
                         className="user-icon"
                         onClick={() =>
@@ -229,7 +229,9 @@ export default function NavBar() {
 
                     <a href="#" className="cart-icon">
                       <img src={wishlist} alt="Wishlist" />
-                      <div className="cart-items">5</div>
+                      <div className="cart-items">
+                        {(user && user?.wishlist && user?.wishlist.length) || 0}
+                      </div>
                     </a>
                     <a
                       href="#"

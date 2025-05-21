@@ -4,6 +4,7 @@ import {
   deleteProductUrl,
   getAllProductsForUserUrl,
   getAllProductsUrl,
+  getLatestProductUrl,
   getSingleProductUrl,
   updateProductUrl,
 } from "../urls";
@@ -30,7 +31,6 @@ export async function addProduct(
     for (const file of data.productImages) {
       formData.append("productImages", file); // must match multer field name
     }
-
     const response = await axios.post(addProductUrl, formData, {
       headers: {
         contentType: "multipart/form-data",
@@ -50,17 +50,27 @@ export async function addProduct(
 }
 
 // function to get all products
-export async function getAllProducts(setProducts) {
+export async function getAllProducts(
+  page,
+  limit,
+  search,
+  setProducts,
+  setTotalProducts
+) {
   try {
-    const response = await axios.get(getAllProductsUrl, {
-      headers: {
-        "Content-Type": "application/json",
-        // "Authorization":""
-      },
-    });
+    const response = await axios.get(
+      `${getAllProductsUrl}?page=${page}&limit=${limit}&search=${search}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          // "Authorization":""
+        },
+      }
+    );
     // console.log(response, "response from get all products api");
     if (response.status === 200 && response.data.isSuccess) {
       setProducts(response.data.products);
+      setTotalProducts(response.data.total);
     }
   } catch (error) {
     console.log(error);
@@ -133,6 +143,24 @@ export async function changeProductStatus(id, setChanged) {
     if (response?.status && response?.data?.isSuccess) {
       setChanged((prev) => !prev);
       return response?.data.isSuccess;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+// function to get latest products for user
+export async function getLatestProductsForUser(limit,setProducts) {
+  try {
+    const response = await axios.get(getLatestProductUrl, {
+      headers: {
+        "Content-Type": "application/json",
+        limit
+      },
+    });
+    if (response.status === 200 && response.data.isSuccess) {
+      setProducts(response.data.products);
     }
   } catch (error) {
     console.log(error);

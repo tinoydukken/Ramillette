@@ -4,11 +4,11 @@ import "./AdminSideBar.css";
 const navLinks = [
   {
     name: "Dashboard",
-    // link: "/Dashboard",
+    link: "/admin/dashboard",
   },
   {
     name: "Users",
-    // link: "/Users",
+    link: "/admin/users",
   },
   {
     name: "Products",

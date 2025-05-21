@@ -1,8 +1,8 @@
-import React from "react";
-import TopHeader from "../../Components/TopHeader/Topheader";
+import React, { useEffect, useState } from "react";
+import TopHeader from "../../Components/TopHeader/TopHeader";
 import NavBar from "../../Components/NavBar/NavBar";
 import Banner from "../../Components/Banner/Banner";
-import "./HomePage.css"
+import "./HomePage.css";
 import Bestseller from "../../Components/BestSeller/BestSeller";
 import Category from "../../Components/Category/Category";
 import Productcard from "../../Components/ProductCard/Productcard";
@@ -10,11 +10,14 @@ import SecondryBanner from "../../Components/SecondryBanner/SecondryBanner";
 import Testimonial from "../../Components/Testimonial/Testimonial";
 import Shipping from "../../Components/Shipping/Shipping";
 import Footer from "../../Components/Footer/Footer";
-
-
-
+import { getLatestProductsForUser } from "../../services/productApiServices";
 
 export default function HomePage() {
+  const [latestProducts, setLatestProducts] = useState([]);
+
+  useEffect(() => {
+    getLatestProductsForUser(8, setLatestProducts);
+  }, []);
 
   return (
     <main className="homepage">
@@ -23,28 +26,41 @@ export default function HomePage() {
       <Banner />
       <div className="best-seller-sec">
         <div className="wrapper">
-          <h2>Discover <span>Our Bestsellers</span></h2>
+          <h2>
+            Discover <span>Our Bestsellers</span>
+          </h2>
           <Bestseller />
         </div>
       </div>
       <div className="category-sec">
         <div className="wrapper">
-          <h2>Shop By <span> Gender</span></h2>
+          <h2>
+            Shop By <span> Gender</span>
+          </h2>
           <Category />
         </div>
       </div>
       <div className="product-sec">
         <div className="wrapper">
-          <h2>Latest <span>Products</span></h2>
+          <h2>
+            Latest <span>Products</span>
+          </h2>
           <div className="product-cards-row">
+            {latestProducts && latestProducts.length > 0 ? (
+              latestProducts.map((product) => (
+                <Productcard key={product._id} product={product} />
+              ))
+            ) : (
+              <div className="no-product">No Product Found</div>
+            )}
+
+            {/* <Productcard />
             <Productcard />
             <Productcard />
             <Productcard />
             <Productcard />
             <Productcard />
-            <Productcard />
-            <Productcard />
-            <Productcard />
+            <Productcard /> */}
           </div>
         </div>
       </div>

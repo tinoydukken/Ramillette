@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import TopHeader from "../../Components/TopHeader/Topheader";
+import TopHeader from "../../Components/TopHeader/TopHeader";
 import NavBar from "../../Components/NavBar/NavBar";
 import ProductInnerproduct from '../../Components/ProductInner/ProductInner';
 import Testimonial from "../../Components/Testimonial/Testimonial";

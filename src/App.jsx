@@ -11,11 +11,15 @@ import AddProduct from "./Pages/AddProduct/AddProduct";
 import AdminProductList from "./Pages/AdminProductList/AdminProductList";
 import AdminProductEdit from "./Pages/AdminProductEdit/AdminProductEdit";
 import AdminLogin from "./Pages/AdminLogin/AdminLogin";
+import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
+import AdminUsers from "./Pages/AdminUsers/AdminUsers";
+import ScrollToTop from "./Components/ScrollToTop/ScrollToTop";
 
 function App() {
   return (
     <>
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/product-list" element={<Productlist />} />
@@ -23,10 +27,12 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/about" element={<AboutPage />} />
-
+           <Route path="/AdminDashboard" element={<AdminDashboard />} />
           {/* Admin ui section */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route element={<AdminMainLayout />}>
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/admin/products" element={<AdminProductList />} />
             <Route path="/admin/add-new-product" element={<AddProduct />} />
             <Route
